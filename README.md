@@ -1,2 +1,2 @@
 # bollywoodtaraneScraper
-Scraper for scraping top album, songs from website Bollywoodtarane.com
+Scraper for scrapping top album, songs from website Bollywoodtarane.com
