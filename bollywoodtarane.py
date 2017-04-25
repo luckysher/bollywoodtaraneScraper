@@ -30,12 +30,22 @@ class BollywoodTarane:
         """
         #get content of the page from the site
         content = getPageContent(bollywoodtaraneUrl)
+
         soup = BeautifulSoup(content, 'html.parser')
+        imgUrlsDivs = soup.findAll("div", {"class": "col-md-2"})
+        captionDivs = soup.findAll("div", {"class": "caption"})
 
-        divs = soup.find_all(name='div', attrs={'class': 'panel panel-default'})
+        if captionDivs and imgUrlsDivs:
+            for (imgUrlDiv, captionDiv) in zip(imgUrlsDivs, captionDivs):
 
-        for div in divs:
-            print("Got div...")
+                self.logger.debug("---------------------------------------")
+                src = imgUrlDiv.find('img')['src']
+                capDivs = captionDiv.findAll('div')
+                movieName = capDivs[0].string
+                rDate = capDivs[1].string
+                self.logger.debug("Movie Name :=%s" % movieName)
+                self.logger.debug("Releasing Date := %s   " % rDate)
+                self.logger.debug("MoviePosterUrl: %s" % src)
 
 
 if __name__ == "__main__":
