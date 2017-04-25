@@ -47,7 +47,3 @@ class BollywoodTarane:
                 self.logger.debug("Releasing Date := %s   " % rDate)
                 self.logger.debug("MoviePosterUrl: %s" % src)
 
-
-if __name__ == "__main__":
-    bollywood = BollywoodTarane()
-    bollywood.scrapeLatestMovieNames()
