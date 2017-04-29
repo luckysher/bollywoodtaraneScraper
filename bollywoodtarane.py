@@ -5,8 +5,9 @@
 ##                                                       ##
 ###########################################################
 
-from utils import *
+from lxml import html
 from bs4 import BeautifulSoup
+from utils import *
 
 
 class BollywoodTarane:
@@ -50,3 +51,28 @@ class BollywoodTarane:
                 self.logger.debug("Releasing Date := %s   " % rDate)
                 self.logger.debug("MoviePosterUrl: %s" % src)
 
+    def scrapeTopLatestMoviesNames(self):
+        """
+        function for getting top latest movies names
+        :param self:
+        :return:
+        """
+        # get content of the page from the site
+        content = getPageContent(bollywoodtaraneUrl)
+
+        soup = BeautifulSoup(content, "lxml")
+
+        lists = soup.findAll("ul", {"class" : "list-unstyled"})
+        moviesNames = lists[0]
+
+        self.logger.debug("==========================================================")
+        self.logger.debug(" ||             Top latest movies:                     || ")
+        self.logger.debug("==========================================================")
+
+        self.logger.debug("     Sr No.                 Movie name                    ")
+        srno = 1
+        for movieName in moviesNames:
+            if movieName.string.strip():
+                self.logger.debug("      %d                     %s" % (srno, movieName.string.strip()))
+                srno += 1
+    
