@@ -36,6 +36,9 @@ class BollywoodTarane:
         captionDivs = soup.findAll("div", {"class": "caption"})
 
         if captionDivs and imgUrlsDivs:
+            self.logger.debug("==========================================================")
+            self.logger.debug(" ||             Upcoming latest movies:                || ")
+            self.logger.debug("==========================================================")
             for (imgUrlDiv, captionDiv) in zip(imgUrlsDivs, captionDivs):
 
                 self.logger.debug("---------------------------------------")
