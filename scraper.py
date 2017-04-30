@@ -27,12 +27,15 @@ class Main():
 
         # scrape latest movies names for this month
         self.logger.debug("Scrapping latest movies names for this month..")
-        #self.bollywood.scrapeLatestMovieNames()
+        self.bollywood.scrapeLatestMovieNames()
 
         # scrape top latest movies names
         self.logger.debug("Scrapping top latest movies names")
         self.bollywood.scrapeTopLatestMoviesNames()
 
+        # scrape top latest downloaded songs names
+        self.logger.debug("Scrapping top latest downloaded songs names")
+        self.bollywood.scrapeTopDownloadedSongsNames()
 
 if __name__ == "__main__":
     main = Main()
