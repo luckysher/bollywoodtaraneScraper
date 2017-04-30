@@ -27,14 +27,13 @@ class BollywoodTaraneTest(unittest.TestCase):
         """
         Test case for getting the top last movies names
         """
-        pass
+        self.bWT.scrapeTopLatestMoviesNames()
 
     def testTopLatestDownloads(self):
         """
         Test for getting the top latest downloads
         """
-        pass
-
+        self.bWT.scrapeTopDownloadedSongsNames()
 
     def tearDown(self):
         self.logger.debug("Tearing down bolloywood tarane test case......")
