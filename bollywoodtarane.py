@@ -23,16 +23,14 @@ class BollywoodTarane:
         self.logger = getLogger()
         self.hostUrl = bollywoodtaraneUrl
         self.logger.debug("Scraper started.....")
+        self.content = getPageContent(bollywoodtaraneUrl)
 
     def scrapeLatestMovieNames(self):
         """
         function for getting the names of latest movie names
         :return:
         """
-        #get content of the page from the site
-        content = getPageContent(bollywoodtaraneUrl)
-
-        soup = BeautifulSoup(content, 'html.parser')
+        soup = BeautifulSoup(self.content, 'html.parser')
         imgUrlsDivs = soup.findAll("div", {"class": "col-md-2"})
         captionDivs = soup.findAll("div", {"class": "caption"})
 
@@ -57,10 +55,7 @@ class BollywoodTarane:
         :param self:
         :return:
         """
-        # get content of the page from the site
-        content = getPageContent(bollywoodtaraneUrl)
-
-        soup = BeautifulSoup(content, "lxml")
+        soup = BeautifulSoup(self.content, "lxml")
 
         lists = soup.findAll("ul", {"class" : "list-unstyled"})
         moviesNames = lists[0]
@@ -70,9 +65,31 @@ class BollywoodTarane:
         self.logger.debug("==========================================================")
 
         self.logger.debug("     Sr No.                 Movie name                    ")
-        srno = 1
-        for movieName in moviesNames:
-            if movieName.string.strip():
-                self.logger.debug("      %d                     %s" % (srno, movieName.string.strip()))
-                srno += 1
-    
+
+        # get all songs name list
+        moviesNameList = moviesNames.find_all('li')
+        for i, movieName in enumerate(moviesNameList):
+            # remove extra space and text from the name
+            movie_name = movieName.text.strip()
+            self.logger.debug("      %d                     %s" % ((i+1), movie_name))
+
+    def scrapeTopDownloadedSongsNames(self):
+        """
+        function for getting top latest downloaded songs names
+        :param self:
+        :return:
+        """
+        soup = BeautifulSoup(self.content, "lxml")
+        lists = soup.findAll("ul", {"class": "list-unstyled"})
+        songsName = lists[1]
+        self.logger.debug("==========================================================")
+        self.logger.debug(" ||             Top latest Downloaded songs names      || ")
+        self.logger.debug("==========================================================")
+        self.logger.debug("     Sr No.                 Song name                    ")
+
+        # get all songs name list
+        songsNameList = songsName.find_all('li')
+        for i, songName in enumerate(songsNameList):
+            # remove extra space and text from the name
+            song_name = songName.text.replace('Latest', '').strip()
+            self.logger.debug("      %d                     %s" % ((i+1), song_name))
